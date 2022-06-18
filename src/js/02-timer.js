@@ -44,14 +44,14 @@ const options = {
       refs.startBtn.disabled = true;
     } else {
       Notiflix.Notify.success("Great! Let's go to start!");
-      refs.startBtn.disabled = false;
+     startBtn.disabled = false;
     }
   },
 };
 let timer = null;
 let dataVal = 0;
 
-flatpickr(refs.iputEl, options);
+flatpickr(input, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
