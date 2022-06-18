@@ -9,29 +9,49 @@ const hoursData = document.querySelector('.value[data-hours]');
 const minutesData = document.querySelector('.value[data-minutes]');
 const secondsData = document.querySelector('.value[data-seconds]');
 
-flatpickr(input, {
-    enableTime: true,
-    time_24hr: true,
-    altInput: true,
-    altFormat: "F j, Y",
-    dateFormat: "Y-m-d",
-    defaultDate: new Date(),
-    minuteIncrement: 1,
+// flatpickr(input, {
+//     enableTime: true,
+//     time_24hr: true,
+//     altInput: true,
+//     altFormat: "F j, Y",
+//     dateFormat: "Y-m-d",
+//     defaultDate: new Date(),
+//     minuteIncrement: 1,
     
-    onClose(selectedDate) {
-      console.log(selectedDate[0]);
-      if (selectedDate[0].getTime() <= this.defaultDate.getTime()) {
-        Notify.failure("Please choose a date in the future");
-        startBtn.disabled = true;
-        // return;
-    }
-    startBtn.disabled = false;
-  }
-},
-);
+//     onClose(selectedDate) {
+//       console.log(selectedDate[0]);
+//       if (selectedDate[0].getTime() <= this.defaultDate.getTime()) {
+//         Notify.failure("Please choose a date in the future");
+//         startBtn.disabled = true;
+//         // return;
+//     }
+//     startBtn.disabled = false;
+//   }
+// },
+// );
 
-let timer = 0;
-let dataVal = null;
+// let timer = 0;
+// let dataVal = null;
+
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    if (options.defaultDate.getTime() >= selectedDates[0].getTime()) {
+      Notiflix.Notify.failure('Please choose a date in the future');
+      refs.startBtn.disabled = true;
+    } else {
+      Notiflix.Notify.success("Great! Let's go to start!");
+      refs.startBtn.disabled = false;
+    }
+  },
+};
+let timer = null;
+let dataVal = 0;
+
+flatpickr(refs.iputEl, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -58,10 +78,10 @@ function pad(value) {
 
 function writeNewTime() {
   let deltaTime = convertMs(dataVal.getTime() - new Date().getTime());
-  daysData.innerHTML = pad(count.days)
-  hoursData.innerHTML = pad(count.hours)
-  minutesData.innerHTML = pad(count.minutes)
- secondsData.innerHTML = pad(count.seconds)
+  daysData.innerHTML = count.days;
+  hoursData.innerHTML = count.hours;
+  minutesData.innerHTML = count.minutes;
+  secondsData.innerHTML = count.seconds;
 
   // let time = convertMs(deltaTime);
   // updateClockFace(time);
