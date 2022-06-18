@@ -78,10 +78,10 @@ function pad(value) {
 
 function writeNewTime() {
   let deltaTime = convertMs(dataVal.getTime() - new Date().getTime());
-  daysData.innerHTML = count.days;
-  hoursData.innerHTML = count.hours;
-  minutesData.innerHTML = count.minutes;
-  secondsData.innerHTML = count.seconds;
+  daysData.innerHTML = deltaTime.days;
+  hoursData.innerHTML = deltaTime.hours;
+  minutesData.innerHTML = deltaTime.minutes;
+  secondsData.innerHTML = deltaTime.seconds;
 
   // let time = convertMs(deltaTime);
   // updateClockFace(time);
