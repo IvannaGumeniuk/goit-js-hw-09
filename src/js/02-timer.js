@@ -2,15 +2,12 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix, { Notify } from 'notiflix';
 
-
 const input = document.querySelector("#datetime-picker");
 const startBtn = document.querySelector("button[data-start]");
-const timer = document.querySelector('.timer');
-// startBtn.addEventListener('click', startСountdown);
-let data = new Date();
-let selectedDates = 0;
-
-startBtn.disabled = true;
+const daysData = document.querySelector('.value[data-days]');
+const hoursData = document.querySelector('.value[data-hours]');
+const minutesData = document.querySelector('.value[data-minutes]');
+const secondsData = document.querySelector('.value[data-seconds]');
 
 flatpickr(input, {
     enableTime: true,
@@ -20,31 +17,21 @@ flatpickr(input, {
     dateFormat: "Y-m-d",
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onClose(selectedDates) {
-      console.log(selectedDates[0]);
-      if (selectedDates[0] < data) {
-        Notify.failure("Please choose a date in the future");
-        return;
-      } 
-        startBtn.disabled = false;
-      
-    //   selectedDates = selectedDates[0];
-startBtn.addEventListener('click', startСountdown);
-function startСountdown() {
-    timer.textContent = `${convertMs(selectedDates - data)}`
-    console.log(convertMs(selectedDates - data))
-};
-      },
-});
-
-// function startСountdown() {
-//     timer.textContent = `${convertMs(selectedDates - data)}`
-//     console.log(convertMs(selectedDates - data))
-// };
-
-// function showTimer() {
     
-// }
+    onClose(selectedDate) {
+      console.log(selectedDate[0]);
+      if (selectedDate[0].getTime() <= this.defaultDate.getTime()) {
+        Notify.failure("Please choose a date in the future");
+        startBtn.disabled = true;
+        // return;
+    }
+    startBtn.disabled = false;
+  }
+},
+);
+
+let timer = 0;
+let dataVal = null;
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -54,13 +41,78 @@ function convertMs(ms) {
   const day = hour * 24;
 
   // Remaining days
-  const days = Math.floor(ms / day);
+  const days = pad(Math.floor(ms / day));
   // Remaining hours
-  const hours = Math.floor((ms % day) / hour);
+  const hours = pad(Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const minutes = pad(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
 }
+
+function pad(value) {
+  return String(value).padStart(2, '0');
+}
+
+function writeNewTime() {
+  let deltaTime = convertMs(dataVal.getTime() - new Date().getTime());
+  daysData.innerHTML = pad(count.days)
+  hoursData.innerHTML = pad(count.hours)
+  minutesData.innerHTML = pad(count.minutes)
+ secondsData.innerHTML = pad(count.seconds)
+
+  // let time = convertMs(deltaTime);
+  // updateClockFace(time);
+  startBtn.disabled = true;
+
+  if (dataVal.getTime() - new Date().getTime() <= 1000) {
+    clearInterval(timer);
+    startBtn.disabled = false;
+    input.setAttribute('readonly', false);
+  }
+};
+
+
+
+startBtn.addEventListener('click', startСountdown);
+
+  function startСountdown() {
+  dataVal = new Date(input.value);
+  input.disabled = true;
+    writeNewTime();
+  timer = setInterval(writeNewTime, 1000);
+  // timer.start();
+};
+
+
+// const timer = {
+//   start() {
+//     const startTime = Date.now();
+
+//     setInterval(() => {
+//       const currentTime = Date.now();
+//       const deltaTime = currentTime - startTime;
+//       const time = convertMs(deltaTime);
+
+//       updateClockFace(time);
+//       // console.log(`${days}:${hours}:${minutes}:${seconds}`);
+// }, 1000);
+//   },
+// };
+
+
+
+
+
+
+
+
+
+// function updateClockFace({ days, hours, minutes, seconds }) {
+//   daysData.textContent = `${days}`;
+//   hoursData.textContent = `${hours}`;
+//   minutesData.textContent = `${minutes}`;
+//   secondsData.textContent = `${seconds}`;
+// }
