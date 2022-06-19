@@ -10,9 +10,64 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  
 }
 
 img {
   display: block;
   max-width: 100%;
+}
+
+.body_timer{
+  font: normal 16px 'Roboto', sans-serif;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+}
+
+div.wrapper {
+  width: calc(4*225px);
+  margin: 0 auto;
+}
+
+.timer{
+  color: #353535;
+}
+
+div.timer p {
+  /* width: 100%; */
+  display: flex;
+  
+  text-align: center;
+}
+
+span.value {
+  font-size: 6em;
+  width: 100%;
+  height: 85%;
+  background: #FFFFFF;
+  margin-top: -25px;
+  padding-top: 100px;
+}
+
+span.label {
+  font-size: 1.5em;
+  width: 100%;
+    height: auto;
+    padding: 30px ;
+    background: #FF5722;
+    color: #FFFFFF;
+}
+
+div.field {
+  width: 210px;
+  height: 360px;
+  background: #FFFFFF;
+  float: left;
+  padding: 25px 0 0 0;
+  margin: 30px 15px 0 0;
+  -webkit-box-shadow: 5px 6px 9px 1px rgba(53, 53, 53, 0.5);
+  -moz-box-shadow: 5px 6px 9px 1px rgba(53, 53, 53, 0.5);
+  box-shadow: 5px 6px 9px 1px rgba(53, 53, 53, 0.5);
 }
