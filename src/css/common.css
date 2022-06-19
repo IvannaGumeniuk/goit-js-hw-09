@@ -10,6 +10,8 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  background: rgb(63, 94, 251);
+    background: radial-gradient(circle, rgba(63, 94, 251, 1) 19%, rgba(252, 243, 70, 1) 82%);
   
 }
 
@@ -20,10 +22,8 @@ img {
 
 .body_timer{
   font: normal 16px 'Roboto', sans-serif;
-  position: absolute;
   height: 100%;
   width: 100%;
-
 }
 
 div.wrapper {
@@ -35,10 +35,9 @@ div.wrapper {
   color: #353535;
 }
 
-div.timer p {
-  /* width: 100%; */
-  display: flex;
-  
+div.timer span {
+  width: 100%;
+  display: inline-block;
   text-align: center;
 }
 
@@ -48,22 +47,23 @@ span.value {
   height: 85%;
   background: #FFFFFF;
   margin-top: -25px;
-  padding-top: 100px;
+  padding-top: 20%;
 }
 
 span.label {
   font-size: 1.5em;
   width: 100%;
     height: auto;
-    padding: 30px ;
-    background: #FF5722;
+    padding: 30px 0;
+    background: #FF6347;
     color: #FFFFFF;
 }
 
 div.field {
   width: 210px;
-  height: 360px;
+  height: 250px;
   background: #FFFFFF;
+  text-align: center;
   float: left;
   padding: 25px 0 0 0;
   margin: 30px 15px 0 0;
