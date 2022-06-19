@@ -54,14 +54,6 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-// function updateClockFace({ days, hours, minutes, seconds }) {
-//   daysEl.textContent = `${days}`;
-//   hoursEl.textContent = `${hours}`;
-//   minutesEl.textContent = `${minutes}`;
-//   secondsEl.textContent = `${seconds}`;
-// }
-
-
 function updateClockFace() {
   let deltaTime = convertMs(dataValue.getTime() - new Date().getTime());
   
